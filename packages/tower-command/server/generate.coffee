@@ -36,6 +36,8 @@ class Tower.CommandGenerate
     program.parse(argv)
 
     program.helpIfNecessary(4)
+    program.helpIfOutAppRoot()
+    program.helpIf => program.args[1] not in Tower.Generator.NAMES
 
   run: ->
     Tower.Generator.run(@program.args[1], program: @program, modelName: @program.args[2])

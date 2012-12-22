@@ -1,9 +1,19 @@
 _ = Tower._
 
-require('commander').Command.prototype.helpIfNecessary = (length) ->
+Command = require('commander').Command
+
+Command.prototype.helpIfNecessary = (length) ->
   if (length && @rawArgs.length == length) || @rawArgs.indexOf('--help') > -1 || @rawArgs.indexOf('-h') > -1
     @outputHelp()
     process.exit()
+
+Command.prototype.helpIf = (conditionalCallback) ->
+  if conditionalCallback()
+    @outputHelp()
+    process.exit()
+
+Command.prototype.helpIfOutAppRoot = ->
+  @helpIf => return Tower.root == Tower.normalizePath('/')
 
 # @todo This should `require` the minimal amount of code possible, 
 #   to execute as fast as possible.
@@ -17,6 +27,7 @@ Tower.Command =
   aliases:
     c: 'console'
     g: 'generate'
+    d: 'destroy'
     s: 'server'
     
   # Figure out the command you want to run, then run it.

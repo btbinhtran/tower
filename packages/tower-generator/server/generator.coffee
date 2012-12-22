@@ -1,6 +1,8 @@
 _ = Tower._
 
 class Tower.Generator# extends Tower.Class
+  @NAMES: ['model', 'controller', 'view', 'template', 'helper', 'mailer', 'service', 'library', 'scaffold']
+
   @include: (mixin) ->
     _.extend(@::, mixin)
 
